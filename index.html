@@ -7,117 +7,29 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
             text-align: center;
             padding: 50px;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 30px;
         }
 
         .social-icons {
             display: flex;
             justify-content: center;
             gap: 30px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .social-icons img {
             width: 50px;
             height: 50px;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease; /* Smooth hover effect */
         }
 
-        .social-icons img:hover {
-            transform: scale(1.2);
-        }
-
-        .hover-text {
-            font-size: 24px;
-            margin-top: 30px;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .hover-text .ip {
-            display: none;
-            font-size: 20px;
-            margin-top: 10px;
-            color: #333;
-        }
-
-        .hover-text .copy-button {
-            display: none;
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: opacity 0.3s;
-        }
-
-        .hover-text:hover .ip,
-        .hover-text:hover .copy-button {
-            display: block;
-            opacity: 1;
-        }
-
-        .copy-button:hover {
-            background-color: #45a049;
-        }
-
-        .social-icons img:hover {
-            cursor: pointer;
-        }
-
-        .social-icons img:before {
-            content: "Click to enter";
-            position: absolute;
-            top: -10px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .social-icons img:hover:before {
-            opacity: 1;
-        }
-
-    </style>
-</head>
-<body>
-    <h1>Welcome to Thousand Acres Minecraft Server!</h1>
-
-    <!-- Social Media Links -->
-    <div class="social-icons">
-        <a href="https://discord.gg/c54daDAx" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Discord_logo_2021.svg" alt="Discord">
-        </a>
-        <a href="https://www.youtube.com/channel/sosabath" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/YouTube_icon_%282013-2017%29.png" alt="YouTube">
-        </a>
-    </div>
-
-    <!-- Hover Reveal for IP -->
-    <div class="hover-text">
-        Hover to reveal Minecraft Server IP:
-        <div class="ip">69.30.219.180:1281</div> <!-- Updated IP and port -->
-        <button class="copy-button" onclick="copyIP()">Copy IP</button>
-    </div>
-
-    <script>
-        // Function to copy the IP address to clipboard
-        function copyIP() {
-            var ipText = document.querySelector('.hover-text .ip').innerText;
-            navigator.clipboard.writeText(ipText)
-                .then(() => {
-                    alert('IP copied to clipboard!');
-                })
-                .catch(err => {
-                    alert('Failed to copy IP: ', err);
-                });
-        }
-    </script>
-</body>
-</html>
+        .social-i
