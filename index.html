@@ -89,18 +89,25 @@
         .about-section {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out;
+            transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out, transform 0.7s ease-in-out;
             padding: 0;
-            background-color: #252525; /* Slightly lighter black for contrast */
+            background-color: #1a1a1a; /* Same as body background */
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            transform: translateY(50px);
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 100;
         }
         .about-section.visible {
             max-height: 600px; /* Adjust based on content height */
             padding: 2rem;
+            transform: translateY(0);
         }
         .hover-text:hover {
-            background-color: #e63946; /* Red accent on hover */
+            background-color: #2c3e50; /* Dark blue-gray instead of red */
             color: #ffffff;
         }
         @keyframes fadeIn {
@@ -113,7 +120,7 @@
     </style>
 </head>
 <body class="flex flex-col items-center justify-center text-white">
-    <div class="content flex flex-col items-center justify-center min-h-screen px-4">
+    <div class="content flex flex-col items-center justify-center min-h-screen px-4 relative">
         <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 animate-fade-in text-center leading-tight">
             Hi! Welcome to Thousand Acres
         </h1>
@@ -154,7 +161,7 @@
                 ABOUT THIS SERVER
             </h2>
             <p class="text-lg md:text-xl lg:text-2xl leading-relaxed">
-                Thousand Acres is a vibrant Minecraft server crafted with passion by a dedicated team. At the helm is Loki, our visionary founder who hosts the server, ensuring a stable and immersive experience for all players. Dqddydev, our technical wizard, meticulously configures the server’s plugins, creating a seamless and feature-rich gameplay environment packed with custom mechanics and enhancements. Ayaan, our community maestro, manages all things social—overseeing the Discord server, curating engaging content on YouTube, designing this sleek website, and occasionally diving into the game to connect with players. Together, they’ve built Thousand Acres into a welcoming community where creativity, adventure, and camaraderie thrive. Whether you’re exploring vast landscapes, building epic structures, or teaming up with friends, Thousand Acres offers a unique and unforgettable Minecraft experience tailored to players of all skill levels.
+                Thousand Acres is a vibrant Minecraft server crafted with passion by a dedicated team. At the helm is Loki, our visionary founder who hosts the server, ensuring a stable and immersive experience for all players. Dqddydev, our technical wizard, meticulously configures the server's plugins, creating a seamless and feature-rich gameplay environment packed with custom mechanics and enhancements. Ayaan, our community maestro, manages all things social—overseeing the Discord server, curating engaging content on YouTube, designing this sleek website, and occasionally diving into the game to connect with players. Together, they've built Thousand Acres into a welcoming community where creativity, adventure, and camaraderie thrive. Whether you're exploring vast landscapes, building epic structures, or teaming up with friends, Thousand Acres offers a unique and unforgettable Minecraft experience tailored to players of all skill levels.
             </p>
         </div>
 
@@ -175,17 +182,13 @@
         const copyMessage = document.querySelector('#copyMessage');
         const expandContainer = document.querySelector('#expandContainer');
         const aboutSection = document.querySelector('#aboutSection');
+        const mainContent = document.querySelector('.content');
 
-        hoverText.addEventListener('mouseenter', () => {
-            ipContainer.classList.add('visible');
-            ipText.classList.add('visible');
-            copyPrompt.classList.add('visible');
-        });
-
-        hoverText.addEventListener('mouseleave', () => {
-            ipContainer.classList.remove('visible');
-            ipText.classList.remove('visible');
-            copyPrompt.classList.remove('visible');
+        // Changed from mouseenter/mouseleave to click for better mobile experience
+        hoverText.addEventListener('click', () => {
+            ipContainer.classList.toggle('visible');
+            ipText.classList.toggle('visible');
+            copyPrompt.classList.toggle('visible');
         });
 
         function copyIP() {
@@ -208,12 +211,19 @@
             }
         });
 
-        // Toggle about section
+        // Toggle about section with fade effect for main content
         function toggleAbout() {
-            if (aboutSection.classList.contains('visible')) {
-                aboutSection.classList.remove('visible');
-            } else {
+            const isExpanding = !aboutSection.classList.contains('visible');
+            
+            if (isExpanding) {
                 aboutSection.classList.add('visible');
+                // Fade out main content
+                mainContent.style.transition = 'opacity 0.7s ease-in-out';
+                mainContent.style.opacity = '0.2';
+            } else {
+                aboutSection.classList.remove('visible');
+                // Fade in main content
+                mainContent.style.opacity = '1';
             }
         }
     </script>
