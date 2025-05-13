@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Thousand Acres Minecraft Server</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      padding-top: 100px;
+    }
+    h1 {
+      font-size: 2.5em;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .btn {
+      background: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .socials {
+      margin-top: 40px;
+    }
+    .socials a {
+      color: #00bfff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 20px;
+    }
+    .socials a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌲 Welcome to Thousand Acres!</h1>
+  <p>Join our Minecraft server:</p>
+
+  <input type="text" id="ip" value="play.yourserver.com" readonly>
+  <br>
+  <button class="btn" onclick="copyIP()">Copy IP</button>
+
+  <div class="socials">
+    <h2>Connect with us</h2>
+    <a href="https://discord.gg/c54daDAx" target="_blank">Discord</a>
+    <a href="https://youtube.com/@sosabath" target="_blank">YouTube</a>
+  </div>
+
+  <script>
+    function copyIP() {
+      const ip = document.getElementById("ip");
+      ip.select();
+      ip.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+      alert("Copied IP: " + ip.value);
+    }
+  </script>
+
+</body>
+</html>
