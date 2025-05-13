@@ -11,16 +11,6 @@
             background-color: #1a1a1a; /* Soft black primary color */
             min-height: 100vh;
             color: #ffffff;
-            overflow-x: hidden;
-        }
-        .main-content {
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-        }
-        .main-content.hidden {
-            opacity: 0;
-            transform: translateY(-20px);
-            pointer-events: none;
-            display: none;
         }
         .ip-container {
             max-height: 0;
@@ -56,7 +46,7 @@
             left: 50%;
             transform: translateX(-50%) translateY(20px);
             opacity: 0;
-            background-color: #8B0000; /* Dark red accent */
+            background-color: #e63946; /* Red accent for pop-up */
             color: #ffffff;
             padding: 1rem 2rem;
             border-radius: 8px;
@@ -94,32 +84,23 @@
             width: 40px;
             height: 40px;
             margin-top: 8px;
-            stroke: #8B0000; /* Dark red accent */
+            stroke: #e63946; /* Red accent for arrow */
         }
         .about-section {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out;
+            padding: 0;
             background-color: #252525; /* Slightly lighter black for contrast */
-            opacity: 0;
-            transform: translateY(100%);
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-            padding: 2rem;
+            border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            z-index: 900;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
         .about-section.visible {
-            opacity: 1;
-            transform: translateY(0);
+            max-height: 600px; /* Adjust based on content height */
+            padding: 2rem;
         }
         .hover-text:hover {
-            background-color: #6c6c6c; /* Keep grey on hover */
+            background-color: #e63946; /* Red accent on hover */
             color: #ffffff;
         }
         @keyframes fadeIn {
@@ -129,41 +110,27 @@
         .animate-fade-in {
             animation: fadeIn 1s ease-out forwards;
         }
-        .close-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-            color: #8B0000;
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
-        }
-        .close-button:hover {
-            color: #ffffff;
-        }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center text-white">
-    <div class="content main-content flex flex-col items-center justify-center min-h-screen px-4" id="mainContent">
+    <div class="content flex flex-col items-center justify-center min-h-screen px-4">
         <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 animate-fade-in text-center leading-tight">
             Hi! Welcome to Thousand Acres
         </h1>
 
         <!-- Social Media Links -->
         <div class="flex flex-wrap justify-center gap-6 mb-8 animate-fade-in" style="animation-delay: 0.2s;">
-            <!-- Discord -->
             <a href="https://discord.gg/c54daDAx" target="_blank" class="social-icon">
-                <img src="https://cdn.discordapp.com/icons/911491925973438515/a_85d0cc4b0816f23fd9acb0f5e550afc5.gif" alt="Discord" class="w-12 h-12 rounded-lg shadow-lg">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Discord_logo.svg" alt="Discord" class="w-16 h-16 rounded-lg shadow-lg">
             </a>
-            <!-- YouTube -->
             <a href="https://www.youtube.com/@Sosabath" target="_blank" class="social-icon">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube" class="w-12 h-12 rounded-lg shadow-lg">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube" class="w-16 h-16 rounded-lg shadow-lg">
             </a>
         </div>
 
         <!-- Server IP with Hover Effect -->
         <div class="text-box bg-gray-800 bg-opacity-90 p-6 rounded-xl shadow-xl animate-fade-in" style="animation-delay: 0.4s;">
-            <div class="hover-text text-2xl md:text-3xl font-semibold cursor-pointer transition-colors duration-300 rounded-lg px-4 py-2">
+            <div class="hover-text text-2xl md:text-3xl font-semibold cursor-pointer transition-colors duration-300 hover:bg-gray-700 hover:text-gray-300 rounded-lg px-4 py-2">
                 Click to Reveal Server IP
                 <div class="ip-container">
                     <div class="ip mt-4 text-xl bg-gray-600 rounded-lg px-4 py-2 cursor-pointer" onclick="copyIP()">
@@ -181,25 +148,22 @@
             IP Copied! Enjoy playing on our server!
         </div>
 
+        <!-- About Section (Hidden by Default) -->
+        <div class="about-section w-full max-w-4xl mt-8" id="aboutSection">
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-right mb-8">
+                ABOUT THIS SERVER
+            </h2>
+            <p class="text-lg md:text-xl lg:text-2xl leading-relaxed">
+                Thousand Acres is a vibrant Minecraft server crafted with passion by a dedicated team. At the helm is Loki, our visionary founder who hosts the server, ensuring a stable and immersive experience for all players. Dqddydev, our technical wizard, meticulously configures the server’s plugins, creating a seamless and feature-rich gameplay environment packed with custom mechanics and enhancements. Ayaan, our community maestro, manages all things social—overseeing the Discord server, curating engaging content on YouTube, designing this sleek website, and occasionally diving into the game to connect with players. Together, they’ve built Thousand Acres into a welcoming community where creativity, adventure, and camaraderie thrive. Whether you’re exploring vast landscapes, building epic structures, or teaming up with friends, Thousand Acres offers a unique and unforgettable Minecraft experience tailored to players of all skill levels.
+            </p>
+        </div>
+
         <!-- Expand Arrow and Prompt -->
         <div class="expand-container" id="expandContainer">
             <div class="text-sm text-gray-300">Click to Expand</div>
-            <svg class="expand-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="showAbout()">
+            <svg class="expand-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" onclick="toggleAbout()">
                 <path d="M12 5v14m0 0l-7-7m7 7l7-7" />
             </svg>
-        </div>
-    </div>
-
-    <!-- About Section (Hidden by Default) -->
-    <div class="about-section" id="aboutSection">
-        <div class="close-button" onclick="hideAbout()">✕</div>
-        <div class="w-full max-w-4xl">
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-right mb-8 animate-fade-in">
-                ABOUT THIS SERVER
-            </h2>
-            <p class="text-lg md:text-xl lg:text-2xl leading-relaxed animate-fade-in" style="animation-delay: 0.2s;">
-                Thousand Acres is a vibrant Minecraft server crafted with passion by a dedicated team. At the helm is Loki, our visionary founder who hosts the server, ensuring a stable and immersive experience for all players. Dqddydev, our technical wizard, meticulously configures the server’s plugins, creating a seamless and feature-rich gameplay environment packed with custom mechanics and enhancements. Ayaan, our community maestro, manages all things social—overseeing the Discord server, curating engaging content on YouTube, designing this sleek website, and occasionally diving into the game to connect with players. Together, they’ve built Thousand Acres into a welcoming community where creativity, adventure, and camaraderie thrive. Whether you’re exploring vast landscapes, building epic structures, or teaming up with friends, Thousand Acres offers a unique and unforgettable Minecraft experience tailored to players of all skill levels.
-            </p>
         </div>
     </div>
 
@@ -210,7 +174,6 @@
         const copyPrompt = document.querySelector('.copy-prompt');
         const copyMessage = document.querySelector('#copyMessage');
         const expandContainer = document.querySelector('#expandContainer');
-        const mainContent = document.querySelector('#mainContent');
         const aboutSection = document.querySelector('#aboutSection');
 
         hoverText.addEventListener('mouseenter', () => {
@@ -234,29 +197,24 @@
             });
         }
 
-        // Show/hide expand arrow based on scroll position
-        window.addEventListener('scroll', () => {
+        // Show/hide expand arrow based on cursor position
+        document.addEventListener('mousemove', (e) => {
             const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight;
-            const scrollPosition = window.scrollY + windowHeight;
-            if (scrollPosition > documentHeight * 0.75) { // Show when in bottom 25% of page
+            const mouseY = e.clientY;
+            if (mouseY > windowHeight * 0.75) { // Show when cursor is in lower 25% of screen
                 expandContainer.classList.add('visible');
             } else {
                 expandContainer.classList.remove('visible');
             }
         });
 
-        // Show about section and hide main content
-        function showAbout() {
-            mainContent.classList.add('hidden');
-            aboutSection.classList.add('visible');
-            expandContainer.classList.remove('visible');
-        }
-
-        // Hide about section and show main content
-        function hideAbout() {
-            aboutSection.classList.remove('visible');
-            mainContent.classList.remove('hidden');
+        // Toggle about section
+        function toggleAbout() {
+            if (aboutSection.classList.contains('visible')) {
+                aboutSection.classList.remove('visible');
+            } else {
+                aboutSection.classList.add('visible');
+            }
         }
     </script>
 </body>
