@@ -77,11 +77,10 @@
             height: 1.5rem;
             fill: #fff;
             transition: transform 0.3s ease;
-            transform: rotate(-90deg); /* Arrow pointing right by default */
         }
 
         .status-toggle.active svg {
-            transform: rotate(90deg); /* Arrow pointing left when active */
+            transform: rotate(180deg);
         }
 
         @keyframes pulse {
@@ -247,7 +246,7 @@
         .server-subtitle {
             font-size: 1.2rem;
             color: var(--highlight-color);
-            text-shadow: 0 0 8px rgba(187, 134, 252, 0.8), 0 0 16px rgba(187, 134, 252, 0.6), 0 0 24px rgba(187, 134, 252, 0.4);
+            text-shadow: 0 0 8px rgba(187, 134, 252, 0.8), 0 0 16px rgba(187, 134, 252, 0.6);
             opacity: 0;
             animation: fadeIn 1s ease-out 0.5s forwards;
         }
@@ -406,7 +405,7 @@
             left: 50%;
             transform: translateX(-50%);
             opacity: 0;
-            transition: opacity 3s ease-in-out, transform 0.3s ease, box-shadow 0.3s ease;
+            transition: opacity 3s ease-in-out;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             z-index: 1000;
         }
@@ -418,13 +417,10 @@
         .about-toggle:hover {
             background-color: var(--hover-bg);
             transform: translateX(-50%) translateY(-3px);
-            box-shadow: 0 0 15px rgba(187, 134, 252, 0.6);
         }
 
         .about-text {
             font-weight: 600;
-            color: var(--highlight-color);
-            text-shadow: 0 0 8px rgba(187, 134, 252, 0.8), 0 0 16px rgba(187, 134, 252, 0.6);
         }
 
         .about-icon {
@@ -434,8 +430,7 @@
         }
 
         .about-icon svg {
-            stroke: var(--highlight-color);
-            filter: drop-shadow(0 0 3px rgba(187, 134, 252, 0.8));
+            stroke: var(--text-color);
         }
 
         .about-icon.rotated svg {
@@ -714,11 +709,11 @@
                     // Set random uptime
                     const days = Math.floor(Math.random() * 14) + 1;
                     const hours = Math.floor(Math.random() * 24);
-                    document.getElementById('uptimeValue').textContent = ${days} days, ${hours} hours;
+                    document.getElementById('uptimeValue').textContent = `${days} days, ${hours} hours`;
                     
                     // Set random players
                     const players = Math.floor(Math.random() * 35);
-                    document.getElementById('playersValue').textContent = ${players}/50;
+                    document.getElementById('playersValue').textContent = `${players}/50`;
                     
                     // Set random TPS (Ticks Per Second) - between 18.5 and 20
                     const tps = (18.5 + Math.random() * 1.5).toFixed(1);
@@ -752,7 +747,7 @@
             function adjustAboutSectionHeight() {
                 if (aboutSection.classList.contains('visible')) {
                     const contentHeight = document.querySelector('.about-content').offsetHeight;
-                    aboutSection.style.maxHeight = ${contentHeight + 32}px;
+                    aboutSection.style.maxHeight = `${contentHeight + 32}px`;
                 }
             }
         });
