@@ -18,6 +18,7 @@
             --highlight-color: #BB86FC; /* Light purple */
             --box-bg: #1B263B; /* Dark navy blue for boxes */
             --hover-bg: #2A3E66; /* Lighter navy for hover */
+            --status-purple: #BB86FC; /* Purple for status section */
         }
 
         * {
@@ -45,6 +46,177 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+
+        /* Server Status Toggle Arrow */
+        .status-toggle {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background-color: var(--status-purple);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(187, 134, 252, 0.6);
+            z-index: 100;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .status-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(187, 134, 252, 0.8);
+        }
+
+        .status-toggle svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            fill: #fff;
+            transition: transform 0.3s ease;
+            transform: rotate(-90deg); /* Arrow pointing right by default */
+        }
+
+        .status-toggle.active svg {
+            transform: rotate(90deg); /* Arrow pointing left when active */
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 15px rgba(187, 134, 252, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(187, 134, 252, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 15px rgba(187, 134, 252, 0.6);
+            }
+        }
+
+        /* Server Status Panel */
+        .status-panel {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            max-width: 350px;
+            height: 100vh;
+            background-color: rgba(27, 38, 59, 0.95);
+            border-right: 3px solid var(--status-purple);
+            z-index: 99;
+            transition: left 0.5s ease;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+            padding: 6rem 1.5rem 2rem;
+        }
+
+        .status-panel.visible {
+            left: 0;
+        }
+
+        .status-panel h2 {
+            font-family: 'Minecraft', 'Roboto', sans-serif;
+            font-size: 1.75rem;
+            color: var(--status-purple);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(187, 134, 252, 0.6);
+        }
+
+        .status-box {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--secondary-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .status-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .status-label {
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .status-value {
+            font-family: 'Minecraft', 'Roboto', sans-serif;
+        }
+
+        .status-online,
+        .status-offline {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.3rem 0.75rem;
+            border-radius: 1rem;
+            font-weight: 600;
+        }
+
+        .status-online {
+            background-color: rgba(68, 207, 110, 0.3);
+            color: #4aff7e;
+            box-shadow: 0 0 10px rgba(74, 255, 126, 0.5);
+        }
+
+        .status-offline {
+            background-color: rgba(255, 82, 82, 0.3);
+            color: #ff5252;
+            box-shadow: 0 0 10px rgba(255, 82, 82, 0.5);
+        }
+
+        .status-icon {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .online-icon {
+            background-color: #4aff7e;
+            box-shadow: 0 0 10px rgba(74, 255, 126, 0.8);
+        }
+
+        .offline-icon {
+            background-color: #ff5252;
+            box-shadow: 0 0 10px rgba(255, 82, 82, 0.8);
+        }
+
+        .stats-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(187, 134, 252, 0.3);
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-name {
+            color: #ccc;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--status-purple);
         }
 
         /* Header and title styling */
@@ -75,7 +247,7 @@
         .server-subtitle {
             font-size: 1.2rem;
             color: var(--highlight-color);
-            text-shadow: 0 0 8px rgba(187, 134, 252, 0.8), 0 0 16px rgba(187, 134, 252, 0.6);
+            text-shadow: 0 0 8px rgba(187, 134, 252, 0.8), 0 0 16px rgba(187, 134, 252, 0.6), 0 0 24px rgba(187, 134, 252, 0.4);
             opacity: 0;
             animation: fadeIn 1s ease-out 0.5s forwards;
         }
@@ -234,7 +406,7 @@
             left: 50%;
             transform: translateX(-50%);
             opacity: 0;
-            transition: opacity 3s ease-in-out;
+            transition: opacity 3s ease-in-out, transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             z-index: 1000;
         }
@@ -246,10 +418,13 @@
         .about-toggle:hover {
             background-color: var(--hover-bg);
             transform: translateX(-50%) translateY(-3px);
+            box-shadow: 0 0 15px rgba(187, 134, 252, 0.6);
         }
 
         .about-text {
             font-weight: 600;
+            color: var(--highlight-color);
+            text-shadow: 0 0 8px rgba(187, 134, 252, 0.8), 0 0 16px rgba(187, 134, 252, 0.6);
         }
 
         .about-icon {
@@ -259,7 +434,8 @@
         }
 
         .about-icon svg {
-            stroke: var(--text-color);
+            stroke: var(--highlight-color);
+            filter: drop-shadow(0 0 3px rgba(187, 134, 252, 0.8));
         }
 
         .about-icon.rotated svg {
@@ -328,6 +504,15 @@
             .server-subtitle {
                 font-size: 1rem;
             }
+            .status-panel {
+                max-width: 280px;
+            }
+            .status-toggle {
+                top: 1rem;
+                left: 1rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -344,10 +529,60 @@
                 width: 3rem;
                 height: 3rem;
             }
+            .status-panel {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Server Status Toggle Button -->
+    <div class="status-toggle" id="statusToggle">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+        </svg>
+    </div>
+    
+    <!-- Server Status Panel -->
+    <div class="status-panel" id="statusPanel">
+        <h2>SERVER STATUS</h2>
+        
+        <div class="status-box">
+            <div class="status-item">
+                <div class="status-label">Current Status:</div>
+                <div class="status-value status-online" id="serverStatus">
+                    <div class="status-icon online-icon"></div>
+                    Online
+                </div>
+            </div>
+        </div>
+        
+        <div class="status-box">
+            <div class="stats-container">
+                <div class="stat-row">
+                    <div class="stat-name">Uptime:</div>
+                    <div class="stat-value" id="uptimeValue">7 days, 3 hours</div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-name">Players Online:</div>
+                    <div class="stat-value" id="playersValue">14/50</div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-name">Server Version:</div>
+                    <div class="stat-value">1.20.4</div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-name">Last Restart:</div>
+                    <div class="stat-value" id="lastRestartValue">May 8, 2025</div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-name">TPS:</div>
+                    <div class="stat-value" id="tpsValue">19.8</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="content">
         <header>
             <h1 class="server-title">Welcome to <span class="glow-thousand">Thousand</span> <span class="glow-acres">Acres</span></h1>
@@ -416,6 +651,10 @@
             const aboutIcon = document.querySelector('.about-icon');
             const aboutSection = document.getElementById('aboutSection');
             const socialIcons = document.querySelectorAll('.social-icon');
+            const statusToggle = document.getElementById('statusToggle');
+            const statusPanel = document.getElementById('statusPanel');
+            const serverStatus = document.getElementById('serverStatus');
+            const statusIcon = document.querySelector('.status-icon');
 
             // Fade in about toggle on page load
             setTimeout(() => {
@@ -449,13 +688,71 @@
                 aboutIcon.classList.toggle('rotated');
             });
 
+            // Toggle server status panel
+            statusToggle.addEventListener('click', function() {
+                statusPanel.classList.toggle('visible');
+                statusToggle.classList.toggle('active');
+                
+                // Simulate server status check when opening panel
+                if (statusPanel.classList.contains('visible')) {
+                    // Simulate server status check (replace with actual API call in production)
+                    checkServerStatus();
+                }
+            });
+
+            // Function to simulate server status check
+            // In production, replace this with actual API calls to your Minecraft server
+            function checkServerStatus() {
+                // For demo purposes, let's create a random online/offline status
+                const isOnline = Math.random() > 0.2; // 80% chance the server is online
+                
+                if (isOnline) {
+                    serverStatus.innerHTML = '<div class="status-icon online-icon"></div>Online';
+                    serverStatus.classList.remove('status-offline');
+                    serverStatus.classList.add('status-online');
+                    
+                    // Set random uptime
+                    const days = Math.floor(Math.random() * 14) + 1;
+                    const hours = Math.floor(Math.random() * 24);
+                    document.getElementById('uptimeValue').textContent = ${days} days, ${hours} hours;
+                    
+                    // Set random players
+                    const players = Math.floor(Math.random() * 35);
+                    document.getElementById('playersValue').textContent = ${players}/50;
+                    
+                    // Set random TPS (Ticks Per Second) - between 18.5 and 20
+                    const tps = (18.5 + Math.random() * 1.5).toFixed(1);
+                    document.getElementById('tpsValue').textContent = tps;
+                } else {
+                    serverStatus.innerHTML = '<div class="status-icon offline-icon"></div>Offline';
+                    serverStatus.classList.remove('status-online');
+                    serverStatus.classList.add('status-offline');
+                    
+                    // Set offline values
+                    document.getElementById('uptimeValue').textContent = 'Server Offline';
+                    document.getElementById('playersValue').textContent = '0/50';
+                    document.getElementById('tpsValue').textContent = '0.0';
+                }
+                
+                // Set last restart date (random date in the past week)
+                const today = new Date();
+                const daysAgo = Math.floor(Math.random() * 7);
+                const restartDate = new Date(today);
+                restartDate.setDate(today.getDate() - daysAgo);
+                document.getElementById('lastRestartValue').textContent = restartDate.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+            }
+
             // Fix potential bug with overflowing content
             window.addEventListener('resize', adjustAboutSectionHeight);
 
             function adjustAboutSectionHeight() {
                 if (aboutSection.classList.contains('visible')) {
                     const contentHeight = document.querySelector('.about-content').offsetHeight;
-                    aboutSection.style.maxHeight = `${contentHeight + 32}px`;
+                    aboutSection.style.maxHeight = ${contentHeight + 32}px;
                 }
             }
         });
